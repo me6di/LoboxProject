@@ -104,6 +104,30 @@
   font-size: 1.2rem;
 }
 
+.add-item-section {
+  border-top: 1px solid #e0e0e0;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.add-item-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: #6366f1;
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;

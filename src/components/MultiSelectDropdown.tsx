@@ -26,6 +26,7 @@ const MultiSelectDropdown = ({
   categoryTitle = 'Category'
 }: MultiSelectDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleToggle = () => {
@@ -54,6 +55,19 @@ const MultiSelectDropdown = ({
       onSelectionChange(selectedIds.filter(id => id !== itemId));
     } else {
       onSelectionChange([...selectedIds, itemId]);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && inputValue.trim() && onAddItem) {
+      const newItem: DropdownItem = {
+        id: Date.now().toString(),
+        label: inputValue.trim(),
+        category: categoryTitle
+      };
+      onAddItem(newItem);
+      setInputValue('');
+      onSelectionChange([...selectedIds, newItem.id]);
     }
   };
 
@@ -98,6 +112,18 @@ const MultiSelectDropdown = ({
               </div>
             ))}
           </div>
+          {onAddItem && (
+            <div className="add-item-section">
+              <input
+                type="text"
+                className="add-item-input"
+                placeholder="Type and press Enter to add..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+            </div>
+          )}
         </div>
       )}
     </div>
