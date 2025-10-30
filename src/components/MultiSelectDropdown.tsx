@@ -48,6 +48,15 @@ const MultiSelectDropdown = ({
     };
   }, [isOpen]);
 
+  const handleItemClick = (itemId: string) => {
+    const isSelected = selectedIds.includes(itemId);
+    if (isSelected) {
+      onSelectionChange(selectedIds.filter(id => id !== itemId));
+    } else {
+      onSelectionChange([...selectedIds, itemId]);
+    }
+  };
+
   const groupedItems = items.reduce((acc, item) => {
     const category = item.category || 'Other';
     if (!acc[category]) {
@@ -76,6 +85,7 @@ const MultiSelectDropdown = ({
                       <div
                         key={item.id}
                         className={`item ${isSelected ? 'selected' : ''}`}
+                        onClick={() => handleItemClick(item.id)}
                       >
                         <span className="item-label">
                           {item.label} {item.emoji}
