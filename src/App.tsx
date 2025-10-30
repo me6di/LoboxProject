@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import './App.scss'
-import MultiSelectDropdown from './components/MultiSelectDropdown'
+import { MultiSelectDropdown, DropdownItem } from './components'
 
 function App() {
-  const [items, setItems] = useState([
+  const [items, setItems] = useState<DropdownItem[]>([
     { id: '1', label: 'Education', emoji: '🎓', category: 'Education' },
     { id: '2', label: 'Yeeeah, science!', emoji: '🧪', category: 'Education' },
     { id: '3', label: 'Art', emoji: '🎨', category: 'Education' },
@@ -14,7 +14,7 @@ function App() {
 
   const [selectedIds, setSelectedIds] = useState<string[]>(['2'])
 
-  const handleAddItem = (newItem: any) => {
+  const handleAddItem = (newItem: DropdownItem) => {
     setItems([...items, newItem])
   }
 
@@ -27,6 +27,8 @@ function App() {
         onSelectionChange={setSelectedIds}
         onAddItem={handleAddItem}
         placeholder="Science"
+        categoryTitle="Education"
+        categoryEmoji="🎓"
       />
     </div>
   )

@@ -1,20 +1,21 @@
 import { useState, useRef, useEffect } from 'react';
 import './MultiSelectDropdown.scss';
 
-interface DropdownItem {
+export interface DropdownItem {
   id: string;
   label: string;
   emoji?: string;
   category?: string;
 }
 
-interface MultiSelectDropdownProps {
+export interface MultiSelectDropdownProps {
   items: DropdownItem[];
   selectedIds: string[];
   onSelectionChange: (selectedIds: string[]) => void;
   onAddItem?: (item: DropdownItem) => void;
   placeholder?: string;
   categoryTitle?: string;
+  categoryEmoji?: string;
 }
 
 const MultiSelectDropdown = ({
@@ -23,7 +24,8 @@ const MultiSelectDropdown = ({
   onSelectionChange,
   onAddItem,
   placeholder = 'Select items',
-  categoryTitle = 'Category'
+  categoryTitle = 'Category',
+  categoryEmoji = '🎓'
 }: MultiSelectDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -91,7 +93,7 @@ const MultiSelectDropdown = ({
           <div className="dropdown-content">
             {Object.entries(groupedItems).map(([category, categoryItems]) => (
               <div key={category} className="category-group">
-                <div className="category-title">{category} 🎓</div>
+                <div className="category-title">{category} {categoryEmoji}</div>
                 <div className="items-list">
                   {categoryItems.map(item => {
                     const isSelected = selectedIds.includes(item.id);
